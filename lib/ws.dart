@@ -16,12 +16,22 @@ class MasterWebsocketHandler {
 
   MasterWebsocketHandler._internal();
 
+  getChannel() {
+    return websocketChannel;
+  }
+
+  getStream() {
+    return websocketChannel.stream;
+  }
+
   connect() async {
-    websocketInstance = await WebSocket.connect("ws://localhost:3000/");
-    websocketChannel = IOWebSocketChannel(websocketInstance);
-    websocketChannel.sink.add('TEST|INFO|' + jsonEncode({"hey": "hello"}));
-    websocketChannel.stream.listen((event) {
-      print(event);
-    });
+    if (websocketChannel == null) {
+      websocketInstance = await WebSocket.connect("ws://localhost:3000/");
+      websocketChannel = IOWebSocketChannel(websocketInstance);
+    }
+  }
+
+  send(dynamic object) {
+    websocketChannel.sink.add(jsonEncode(object));
   }
 }
