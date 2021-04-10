@@ -75,13 +75,20 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class HomePage extends StatelessWidget {
+  void handlepress() {
+    print('press');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ElevatedButton(
-        child: Text('Hello'),
-        onPressed: null,
-      ),
-    );
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Material(child: Text('Welcome to Daybloom')),
+            ElevatedButton(onPressed: handlepress, child: Text('Start'))
+          ],
+        ));
   }
 }
